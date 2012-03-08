@@ -25,7 +25,7 @@
  *   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package ensemble.samples.gauges.radial;
+package ensemble.samples.gauges.lcd;
 
 import ensemble.Sample;
 import java.util.Random;
@@ -33,29 +33,22 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
-import jfxtras.labs.scene.control.gauge.ColorDef;
-import jfxtras.labs.scene.control.gauge.Gauge;
 import jfxtras.labs.scene.control.gauge.GaugeModel;
+import jfxtras.labs.scene.control.gauge.Lcd;
 import jfxtras.labs.scene.control.gauge.LcdDesign;
-import jfxtras.labs.scene.control.gauge.LedColor;
-import jfxtras.labs.scene.control.gauge.Radial;
-import jfxtras.labs.scene.control.gauge.RadialHalfN;
-import jfxtras.labs.scene.control.gauge.RadialQuarterN;
 import jfxtras.labs.scene.control.gauge.StyleModel;
 import jfxtras.labs.scene.control.gauge.StyleModelBuilder;
 
 /**
- * Radial gauges.
+ * Lcd gauges.
  *
- * @see jxftras.labs.scene.control.gauge.Radial
- * @see jxftras.labs.scene.control.gauge.RadialQuarterN
- * @see jxftras.labs.scene.control.gauge.RadialHalfN
+ * @see jxftras.labs.scene.control.gauge.Lcd
  */
-public class RadialGaugesSample extends Sample {
+public class LcdGaugesSample extends Sample {
     private static final Random  RND          = new Random();
     private static final long    DATA_PERIOD  = 2500000000l;
 
-    private GaugeModel           gaugeModel   = new GaugeModel();
+    private GaugeModel           gaugeModel;
     private long                 lastDataCall = 0;
 
     private final AnimationTimer TIMER        = new AnimationTimer() {
@@ -69,65 +62,45 @@ public class RadialGaugesSample extends Sample {
         }
     };
 
-    public RadialGaugesSample() {
+    public LcdGaugesSample() {
         super(600, 600);
+
+        gaugeModel = new GaugeModel();
 
         // Create some controls
         StyleModel STYLE_MODEL_1 = new StyleModelBuilder().create()
-            .frameDesign(Gauge.FrameDesign.STEEL)
-            .backgroundDesign(Gauge.BackgroundDesign.DARK_GRAY)
-            .tickLabelOrientation(Gauge.TicklabelOrientation.HORIZONTAL)
-            .pointerType(Gauge.PointerType.TYPE14)
-            .thresholdColor(Gauge.ThresholdColor.RED)
-            .thresholdVisible(true)
-            .valueColor(ColorDef.ORANGE)
-            .ledColor(LedColor.RED)
             .lcdDesign(LcdDesign.STANDARD_GREEN)
+            .lcdDigitalFontEnabled(true)
             .lcdThresholdVisible(true)
             .build();
 
-        Radial radial1 = new Radial(gaugeModel, STYLE_MODEL_1);
-        radial1.setThreshold(40);
-        radial1.setPrefSize(250, 250);
+        Lcd lcd1 = new Lcd(gaugeModel, STYLE_MODEL_1);
+        lcd1.setThreshold(40);
+        lcd1.setPrefSize(250, 70);
 
         StyleModel STYLE_MODEL_2 = new StyleModelBuilder().create()
-            .frameDesign(Gauge.FrameDesign.STEEL)
-            .backgroundDesign(Gauge.BackgroundDesign.BLACK)
-            .tickLabelOrientation(Gauge.TicklabelOrientation.TANGENT)
-            .bargraph(true)
-            .thresholdColor(Gauge.ThresholdColor.RED)
-            .thresholdVisible(true)
-            .valueColor(ColorDef.BLUE)
-            .ledColor(LedColor.CYAN)
+            .lcdDesign(LcdDesign.DARK_BLUE)
+            .lcdDecimals(3)
+            .lcdNumberSystemVisible(true)
             .build();
 
-        RadialHalfN radial2 = new RadialHalfN(gaugeModel, STYLE_MODEL_2);
-        radial2.setThreshold(30);
-        radial2.setPrefSize(250, 250);
+        Lcd lcd2 = new Lcd(STYLE_MODEL_2);
+        lcd2.setThreshold(30);
+        lcd2.setPrefSize(250, 70);
 
         StyleModel STYLE_MODEL_3 = new StyleModelBuilder().create()
-            .frameDesign(Gauge.FrameDesign.BRASS)
-            .backgroundDesign(Gauge.BackgroundDesign.WHITE)
-            .knobColor(Gauge.KnobColor.BRASS)
-            .knobDesign(Gauge.KnobDesign.METAL)
-            .tickLabelOrientation(Gauge.TicklabelOrientation.NORMAL)
-            .pointerType(Gauge.PointerType.TYPE9)
-            .thresholdColor(Gauge.ThresholdColor.ORANGE)
-            .thresholdVisible(true)
-            .valueColor(ColorDef.ORANGE)
-            .ledColor(LedColor.ORANGE)
             .lcdDesign(LcdDesign.DARK_AMBER)
             .lcdDecimals(3)
             .lcdDigitalFontEnabled(true)
             .build();
 
-        RadialQuarterN radial3 = new RadialQuarterN(gaugeModel, STYLE_MODEL_3);
-        radial3.setThreshold(50);
-        radial3.setPrefSize(250, 250);
+        Lcd lcd3 = new Lcd(STYLE_MODEL_3);
+        lcd3.setThreshold(50);
+        lcd3.setPrefSize(250, 70);
 
-        RadialHalfN radial4 = new RadialHalfN(gaugeModel, STYLE_MODEL_3);
-        radial4.setThreshold(50);
-        radial4.setPrefSize(250, 250);
+        Lcd lcd4 = new Lcd(STYLE_MODEL_3);
+        lcd4.setThreshold(50);
+        lcd4.setPrefSize(250, 70);
 
         // Layout
         final GridPane pane = new GridPane();
@@ -137,10 +110,10 @@ public class RadialGaugesSample extends Sample {
         pane.setAlignment(Pos.TOP_CENTER);
 
         // Add controls to the layout
-        pane.add(radial1, 1, 1);
-        pane.add(radial2, 2, 1);
-        pane.add(radial3, 1, 2);
-        pane.add(radial4, 2, 2);
+        pane.add(lcd1, 1, 1);
+        pane.add(lcd2, 2, 1);
+        pane.add(lcd3, 1, 2);
+        pane.add(lcd4, 2, 2);
 
         getChildren().add(pane);
     }
