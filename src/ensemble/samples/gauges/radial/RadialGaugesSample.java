@@ -75,7 +75,6 @@ public class RadialGaugesSample extends Sample {
 
     public RadialGaugesSample() {
         super(600, 600);
-
         // Create some controls
         StyleModel STYLE_MODEL_1 = new StyleModelBuilder().create()
             .frameDesign(Gauge.FrameDesign.STEEL)
@@ -85,10 +84,8 @@ public class RadialGaugesSample extends Sample {
             .lcdDesign(LcdDesign.STANDARD_GREEN)
             .build();
 
-        radial1 = new Radial();
-        radial1.setRadialRange(Gauge.RadialRange.RADIAL_300);
+        radial1 = new Radial(STYLE_MODEL_1);
         radial1.setThreshold(30);
-        radial1.setValue(0);
         radial1.setPrefSize(250, 250);
 
         StyleModel STYLE_MODEL_2 = new StyleModelBuilder().create()

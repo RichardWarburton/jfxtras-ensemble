@@ -94,7 +94,7 @@ public class LcdGaugesSample extends Sample {
         // Create some controls
         lcd1 = new Lcd(STYLE_MODEL_1);
         lcd1.setThreshold(40);
-        //lcd1.setBargraphVisible(true);
+        lcd1.setBargraphVisible(true);
         lcd1.setLcdMinMeasuredValueDecimals(3);
         lcd1.setLcdMaxMeasuredValueDecimals(3);
         lcd1.setPrefSize(250, 70);
