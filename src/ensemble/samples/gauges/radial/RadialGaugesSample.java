@@ -35,7 +35,6 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import jfxtras.labs.scene.control.gauge.ColorDef;
 import jfxtras.labs.scene.control.gauge.Gauge;
-import jfxtras.labs.scene.control.gauge.GaugeModel;
 import jfxtras.labs.scene.control.gauge.LcdDesign;
 import jfxtras.labs.scene.control.gauge.LedColor;
 import jfxtras.labs.scene.control.gauge.Radial;
@@ -54,16 +53,21 @@ import jfxtras.labs.scene.control.gauge.StyleModelBuilder;
 public class RadialGaugesSample extends Sample {
     private static final Random  RND          = new Random();
     private static final long    DATA_PERIOD  = 2500000000l;
-
-    private GaugeModel           gaugeModel   = new GaugeModel();
     private long                 lastDataCall = 0;
+    private Radial               radial1;
+    private RadialHalfN          radial2;
+    private RadialQuarterN       radial3;
+    RadialHalfN                  radial4;
 
     private final AnimationTimer TIMER        = new AnimationTimer() {
         @Override
         public void handle(long l) {
             long currentNanoTime = System.nanoTime();
             if (currentNanoTime > lastDataCall + DATA_PERIOD) {
-                gaugeModel.setValue(RND.nextDouble() * 100);
+                radial1.setValue(RND.nextDouble() * 100);
+                radial2.setValue(RND.nextDouble() * 100);
+                radial3.setValue(RND.nextDouble() * 100);
+                radial4.setValue(RND.nextDouble() * 100);
                 lastDataCall = System.nanoTime();
             }
         }
@@ -75,19 +79,19 @@ public class RadialGaugesSample extends Sample {
         // Create some controls
         StyleModel STYLE_MODEL_1 = new StyleModelBuilder().create()
             .frameDesign(Gauge.FrameDesign.STEEL)
-            .backgroundDesign(Gauge.BackgroundDesign.DARK_GRAY)
             .tickLabelOrientation(Gauge.TicklabelOrientation.HORIZONTAL)
             .pointerType(Gauge.PointerType.TYPE14)
-            .thresholdColor(Gauge.ThresholdColor.RED)
             .thresholdVisible(true)
-            .valueColor(ColorDef.ORANGE)
-            .ledColor(LedColor.RED)
             .lcdDesign(LcdDesign.STANDARD_GREEN)
-            .lcdThresholdVisible(true)
             .build();
 
-        Radial radial1 = new Radial(gaugeModel, STYLE_MODEL_1);
-        radial1.setThreshold(40);
+        radial1 = new Radial();
+        System.out.println(radial1.getAngleStep());
+        System.out.println(radial1.getRadialRange().ROTATION_OFFSET);
+        System.out.println(isVisible());
+        //radial1.setRadialRange(Gauge.RadialRange.RADIAL_300);
+        //radial1.setThreshold(30);
+        //radial1.setValue(0);
         radial1.setPrefSize(250, 250);
 
         StyleModel STYLE_MODEL_2 = new StyleModelBuilder().create()
@@ -101,8 +105,8 @@ public class RadialGaugesSample extends Sample {
             .ledColor(LedColor.CYAN)
             .build();
 
-        RadialHalfN radial2 = new RadialHalfN(gaugeModel, STYLE_MODEL_2);
-        radial2.setThreshold(30);
+        radial2 = new RadialHalfN(STYLE_MODEL_2);
+        radial2.setThreshold(50);
         radial2.setPrefSize(250, 250);
 
         StyleModel STYLE_MODEL_3 = new StyleModelBuilder().create()
@@ -121,12 +125,11 @@ public class RadialGaugesSample extends Sample {
             .lcdDigitalFontEnabled(true)
             .build();
 
-        RadialQuarterN radial3 = new RadialQuarterN(gaugeModel, STYLE_MODEL_3);
-        radial3.setThreshold(50);
+        radial3 = new RadialQuarterN(STYLE_MODEL_3);
+        radial3.setThreshold(40);
         radial3.setPrefSize(250, 250);
 
-        RadialHalfN radial4 = new RadialHalfN(gaugeModel, STYLE_MODEL_3);
-        radial4.setThreshold(50);
+        radial4 = new RadialHalfN(STYLE_MODEL_3);
         radial4.setPrefSize(250, 250);
 
         // Layout

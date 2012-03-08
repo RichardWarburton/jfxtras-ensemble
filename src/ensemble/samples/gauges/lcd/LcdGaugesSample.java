@@ -33,7 +33,6 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
-import jfxtras.labs.scene.control.gauge.GaugeModel;
 import jfxtras.labs.scene.control.gauge.Lcd;
 import jfxtras.labs.scene.control.gauge.LcdDesign;
 import jfxtras.labs.scene.control.gauge.StyleModel;
@@ -48,7 +47,11 @@ public class LcdGaugesSample extends Sample {
     private static final Random  RND          = new Random();
     private static final long    DATA_PERIOD  = 2500000000l;
 
-    private GaugeModel           gaugeModel;
+    private Lcd                  lcd1;
+    private Lcd                  lcd2;
+    private Lcd                  lcd3;
+    private Lcd                  lcd4;
+
     private long                 lastDataCall = 0;
 
     private final AnimationTimer TIMER        = new AnimationTimer() {
@@ -56,57 +59,64 @@ public class LcdGaugesSample extends Sample {
         public void handle(long l) {
             long currentNanoTime = System.nanoTime();
             if (currentNanoTime > lastDataCall + DATA_PERIOD) {
-                gaugeModel.setValue(RND.nextDouble() * 100);
+                lcd1.setValue(RND.nextDouble() * 100);
+                lcd2.setValue(RND.nextDouble() * 100);
+                lcd3.setValue(RND.nextDouble() * 100);
+                lcd4.setValue(RND.nextDouble() * 100);
                 lastDataCall = System.nanoTime();
             }
         }
     };
 
+    // Create some controls
+    private StyleModel STYLE_MODEL_1 = new StyleModelBuilder().create()
+        .lcdDesign(LcdDesign.STANDARD_GREEN)
+        .lcdDigitalFontEnabled(true)
+        .lcdUnitStringVisible(true)
+        .lcdThresholdVisible(true)
+        .build();
+
+    private StyleModel STYLE_MODEL_2 = new StyleModelBuilder().create()
+        .lcdDesign(LcdDesign.DARK_BLUE)
+        .lcdDecimals(3)
+        .lcdNumberSystemVisible(true)
+        .build();
+
+    private StyleModel STYLE_MODEL_3 = new StyleModelBuilder().create()
+        .lcdDesign(LcdDesign.DARK_AMBER)
+        .lcdDecimals(3)
+        .lcdDigitalFontEnabled(true)
+        .build();
+
     public LcdGaugesSample() {
         super(600, 600);
 
-        gaugeModel = new GaugeModel();
-
         // Create some controls
-        StyleModel STYLE_MODEL_1 = new StyleModelBuilder().create()
-            .lcdDesign(LcdDesign.STANDARD_GREEN)
-            .lcdDigitalFontEnabled(true)
-            .lcdThresholdVisible(true)
-            .build();
-
-        Lcd lcd1 = new Lcd(gaugeModel, STYLE_MODEL_1);
+        lcd1 = new Lcd(STYLE_MODEL_1);
         lcd1.setThreshold(40);
+        //lcd1.setBargraphVisible(true);
+        lcd1.setLcdMinMeasuredValueDecimals(3);
+        lcd1.setLcdMaxMeasuredValueDecimals(3);
         lcd1.setPrefSize(250, 70);
 
-        StyleModel STYLE_MODEL_2 = new StyleModelBuilder().create()
-            .lcdDesign(LcdDesign.DARK_BLUE)
-            .lcdDecimals(3)
-            .lcdNumberSystemVisible(true)
-            .build();
-
-        Lcd lcd2 = new Lcd(STYLE_MODEL_2);
+        lcd2 = new Lcd(STYLE_MODEL_2);
         lcd2.setThreshold(30);
         lcd2.setPrefSize(250, 70);
 
-        StyleModel STYLE_MODEL_3 = new StyleModelBuilder().create()
-            .lcdDesign(LcdDesign.DARK_AMBER)
-            .lcdDecimals(3)
-            .lcdDigitalFontEnabled(true)
-            .build();
-
-        Lcd lcd3 = new Lcd(STYLE_MODEL_3);
+        lcd3 = new Lcd(STYLE_MODEL_3);
         lcd3.setThreshold(50);
         lcd3.setPrefSize(250, 70);
 
-        Lcd lcd4 = new Lcd(STYLE_MODEL_3);
+        lcd4 = new Lcd();
+        lcd4.setLcdDesign(LcdDesign.DARK_GREEN);
         lcd4.setThreshold(50);
         lcd4.setPrefSize(250, 70);
 
         // Layout
         final GridPane pane = new GridPane();
         pane.setPadding(new Insets(5));
-        pane.setHgap(5);
-        pane.setVgap(5);
+        pane.setHgap(20);
+        pane.setVgap(20);
         pane.setAlignment(Pos.TOP_CENTER);
 
         // Add controls to the layout
