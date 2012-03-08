@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import jfxtras.labs.scene.control.gauge.Rater;
 
 /**
- * Trafficlight.
+ * Rater.
  *
  * @see jxftras.labs.scene.control.gauge.Rater
  */
