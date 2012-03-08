@@ -86,12 +86,9 @@ public class RadialGaugesSample extends Sample {
             .build();
 
         radial1 = new Radial();
-        System.out.println(radial1.getAngleStep());
-        System.out.println(radial1.getRadialRange().ROTATION_OFFSET);
-        System.out.println(isVisible());
-        //radial1.setRadialRange(Gauge.RadialRange.RADIAL_300);
-        //radial1.setThreshold(30);
-        //radial1.setValue(0);
+        radial1.setRadialRange(Gauge.RadialRange.RADIAL_300);
+        radial1.setThreshold(30);
+        radial1.setValue(0);
         radial1.setPrefSize(250, 250);
 
         StyleModel STYLE_MODEL_2 = new StyleModelBuilder().create()
