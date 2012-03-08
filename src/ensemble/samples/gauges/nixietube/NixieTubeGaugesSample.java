@@ -17,9 +17,9 @@ import javafx.scene.shape.Rectangle;
 import jfxtras.labs.scene.control.gauge.NixieTube;
 
 /**
- * Trafficlight.
+ * Nixie Tube..
  *
- * @see jxftras.labs.scene.control.gauge.Trafficlight
+ * @see jxftras.labs.scene.control.gauge.NixieTube
  */
 public class NixieTubeGaugesSample extends Sample {
     private static final Random  RND          = new Random();

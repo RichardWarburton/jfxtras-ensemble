@@ -15,9 +15,9 @@ import javafx.scene.paint.Color;
 import jfxtras.labs.scene.control.gauge.FlipChar;
 
 /**
- * Trafficlight.
+ * FlipChar control.
  *
- * @see jxftras.labs.scene.control.gauge.Trafficlight
+ * @see jxftras.labs.scene.control.gauge.FlipChar
  */
 public class FlipCharGaugesSample extends Sample {
     private static final Random  RND          = new Random();
