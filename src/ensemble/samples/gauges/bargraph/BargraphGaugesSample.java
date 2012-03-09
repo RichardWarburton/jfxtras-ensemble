@@ -10,7 +10,6 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.layout.GridPane;
 import jfxtras.labs.scene.control.gauge.Led;
 import jfxtras.labs.scene.control.gauge.LedBargraph;
