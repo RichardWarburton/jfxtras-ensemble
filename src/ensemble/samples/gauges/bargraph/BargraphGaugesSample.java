@@ -11,6 +11,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import jfxtras.labs.scene.control.gauge.Led;
 import jfxtras.labs.scene.control.gauge.LedBargraph;
 
@@ -21,7 +24,7 @@ import jfxtras.labs.scene.control.gauge.LedBargraph;
  */
 public class BargraphGaugesSample extends Sample {
     private static final Random  RND          = new Random();
-    private static final long    DATA_PERIOD  = 500000000l;
+    private static final long    DATA_PERIOD  = 100000000l;
     private long                 lastDataCall = 0;
     private LedBargraph          bargraph1;
     private LedBargraph          bargraph2;
@@ -44,6 +47,11 @@ public class BargraphGaugesSample extends Sample {
 
     public BargraphGaugesSample() {
         super(600, 600);
+
+        StackPane stack = new StackPane();
+        Rectangle background = new Rectangle(600, 600);
+        background.setFill(Color.rgb(30, 30, 30));
+        stack.getChildren().add(background);
 
         // Create some controls
         bargraph1 = new LedBargraph();
@@ -81,7 +89,9 @@ public class BargraphGaugesSample extends Sample {
         pane.add(bargraph4, 3, 1);
         GridPane.setRowSpan(bargraph4, 2);
 
-        getChildren().add(pane);
+        stack.getChildren().add(pane);
+
+        getChildren().add(stack);
     }
 
     @Override
