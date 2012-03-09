@@ -101,6 +101,7 @@ public class RadialGaugesSample extends Sample {
 
         radial2 = new RadialHalfN(STYLE_MODEL_2);
         radial2.setThreshold(50);
+        radial2.setTickLabelOrientation(Gauge.TicklabelOrientation.NORMAL);
         radial2.setPrefSize(250, 250);
 
         StyleModel STYLE_MODEL_3 = new StyleModelBuilder().create()
