@@ -36,9 +36,10 @@ import java.util.GregorianCalendar;
 import jfxtras.labs.scene.control.*;
 
 /**
- * CalendarTextField and CalendarPicker.
+ * CalendarPicker.
+ * The coder is responsible for the background (in this way the picker does not enforce a certain styling).
  *
- * @see jfxtras.labs.scene.control.CalendarTextField
+ * @see jfxtras.labs.scene.control.CalendarPicker
  */
 public class CalendarPickerSample1 extends Sample {
 

@@ -33,23 +33,34 @@ package ensemble.samples.controls;
 
 import ensemble.Sample;
 import java.util.GregorianCalendar;
-import jfxtras.labs.scene.control.CalendarTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.util.Callback;
+import jfxtras.labs.scene.control.*;
+import jfxtras.labs.util.StringConverterFactory;
 
 /**
- * CalendarTextField using CalendarPicker.
+ * The same spinners as Sample1, only with vertical arrows.
  *
- * @see jfxtras.labs.scene.control.CalendarTextField
- * @see jfxtras.labs.scene.control.CalendarPicker
+ * @see jfxtras.labs.scene.control.Spinner
  */
-public class CalendarTextFieldSample extends Sample {
+public class SpinnerSample2 extends SpinnerSample1 {
 
-    public CalendarTextFieldSample() {
-        super(300, 300);
+    public SpinnerSample2() {
+        super();
 
-        CalendarTextField calTextField = new CalendarTextField();
-        calTextField.setPrefWidth(200);
-        calTextField.valueProperty().set(new GregorianCalendar(2011, 2, 01));
-
-        getChildren().add(calTextField);
+        
+        GridPane lGridPane = (GridPane)getChildren().get(0);
+        for (Node lNode : lGridPane.getChildren())
+        {
+            Spinner lSpinner = (Spinner)lNode;
+            lSpinner.setArrowDirection(Spinner.ArrowDirection.VERTICAL);
+        }
     }
 }
