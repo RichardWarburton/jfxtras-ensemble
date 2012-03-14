@@ -32,21 +32,28 @@
 package ensemble.samples.controls;
 
 import ensemble.Sample;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
 import javafx.util.Callback;
 import jfxtras.labs.scene.control.*;
 import jfxtras.labs.util.StringConverterFactory;
 
 /**
- * The same spinners as Sample1, only with vertical arrows.
+ * The same spinners as Sample1, with arrows laid out in all kinds of different ways: horizontal or vertical direction, and leading, trailing or split positions.
+ * (The vertical split layout also uses alignment CENTER.)
  *
  * @see jfxtras.labs.scene.control.Spinner
  */
@@ -55,12 +62,94 @@ public class SpinnerSample2 extends SpinnerSample1 {
     public SpinnerSample2() {
         super();
 
+        // get what we have done in super, then clear
+        VBox lInitialVBox = (VBox)getChildren().get(0);
+        getChildren().clear();
         
-        GridPane lGridPane = (GridPane)getChildren().get(0);
-        for (Node lNode : lGridPane.getChildren())
+        // create a new horizontal box
+        HBox lHBox = new HBox(10.0);
+
+        // column 1
         {
-            Spinner lSpinner = (Spinner)lNode;
-            lSpinner.setArrowDirection(Spinner.ArrowDirection.VERTICAL);
+            // create a new horizontal box
+            VBox lColumnVBox = new VBox(10.0);
+            
+            // TRAILING: add what we have done in super again
+            lColumnVBox.getChildren().add(lInitialVBox);
+
+            // LEADING
+            {
+                VBox lVBox = new VBox(3.0);
+                for (Node lNode : lInitialVBox.getChildren())
+                {
+                    Spinner lSpinner = shallowClone((Spinner)lNode);
+                    lSpinner.setArrowPosition(Spinner.ArrowPosition.LEADING);
+                    lVBox.getChildren().add(lSpinner);
+                }
+                lColumnVBox.getChildren().add(lVBox);
+            }
+
+            // SPLIT
+            {
+                VBox lVBox = new VBox(3.0);
+                for (Node lNode : lInitialVBox.getChildren())
+                {
+                    Spinner lSpinner = shallowClone((Spinner)lNode);
+                    lSpinner.setArrowPosition(Spinner.ArrowPosition.SPLIT);
+                    lVBox.getChildren().add(lSpinner);
+                }
+                lColumnVBox.getChildren().add(lVBox);
+            }
+            lHBox.getChildren().add(lColumnVBox);
         }
+        
+        // column 2
+        {
+            // create a new horizontal box
+            VBox lColumnVBox = new VBox(10.0);
+            
+            // VERTICAL TRAILING
+            {
+                VBox lVBox = new VBox(3.0);
+                for (Node lNode : lInitialVBox.getChildren())
+                {
+                    Spinner lSpinner = shallowClone((Spinner)lNode);
+                    lSpinner.setArrowDirection(Spinner.ArrowDirection.VERTICAL);
+                    lVBox.getChildren().add(lSpinner);
+                }
+                lColumnVBox.getChildren().add(lVBox);
+            }
+            // VERTICAL LEADING
+            {
+                VBox lVBox = new VBox(3.0);
+                for (Node lNode : lInitialVBox.getChildren())
+                {
+                    Spinner lSpinner = shallowClone((Spinner)lNode);
+                    lSpinner.setArrowDirection(Spinner.ArrowDirection.VERTICAL);
+                    lSpinner.setArrowPosition(Spinner.ArrowPosition.LEADING);
+                    lVBox.getChildren().add(lSpinner);
+                }
+                lColumnVBox.getChildren().add(lVBox);
+            }
+            // VERTICAL SPLIT
+            {
+                VBox lVBox = new VBox(3.0);
+                for (Node lNode : lInitialVBox.getChildren())
+                {
+                    Spinner lSpinner = shallowClone((Spinner)lNode);
+                    lSpinner.setArrowDirection(Spinner.ArrowDirection.VERTICAL);
+                    lSpinner.setArrowPosition(Spinner.ArrowPosition.SPLIT);
+                    lSpinner.setAlignment(Pos.CENTER);
+                    lVBox.getChildren().add(lSpinner);
+                }
+                lColumnVBox.getChildren().add(lVBox);
+            }
+            lHBox.getChildren().add(lColumnVBox);
+        }
+
+        getChildren().add(lHBox);        
+        //ScrollPane lScrollPane = new ScrollPane();
+        //lScrollPane.setContent(lHBox);
+        //getChildren().add(lScrollPane);        
     }
 }

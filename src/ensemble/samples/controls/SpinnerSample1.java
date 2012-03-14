@@ -40,12 +40,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import jfxtras.labs.scene.control.*;
 import jfxtras.labs.util.StringConverterFactory;
 
 /**
- * Several spinners. 
+ * The basic forms of the spinner: list, editable list, integer
  * The way they are constructed (using "with") probably will be replaced with a builder.
  *
  * @see jfxtras.labs.scene.control.Spinner
@@ -55,26 +56,20 @@ public class SpinnerSample1 extends Sample {
     public SpinnerSample1() {
         super(300, 300);
 
-        GridPane lGridPane = new GridPane();
-        lGridPane.setMinWidth(250.0);
-        lGridPane.setVgap(5.0);
-        ColumnConstraints column0 = new ColumnConstraints(10, 10, Double.MAX_VALUE);
-        column0.setHgrow(Priority.ALWAYS);
-        lGridPane.getColumnConstraints().addAll(column0);
-        int lRowIdx = 0;
+        VBox lVBox = new VBox(3.0);
         
         // simple cyclic spinner on an array of strings
         {
             Spinner<String> lSpinner = new Spinner<String>("first", "second", "third")
                                     .withCyclic(true)
                                     ;
-            lGridPane.add(lSpinner, 0, lRowIdx++);
+            lVBox.getChildren().add(lSpinner);
         }
         
         // editable cycle spinner
         {
             final ObservableList<String> lObservableList = FXCollections.observableArrayList("a", "b", "c", "d", "e");
-            Spinner<String> lXSpinner = new Spinner<String>( lObservableList )
+            Spinner<String> lSpinner = new Spinner<String>( lObservableList )
                     .withCyclic(true)
                     .withEditable(true)
                     .withStringConverter(StringConverterFactory.forString())
@@ -88,15 +83,27 @@ public class SpinnerSample1 extends Sample {
                             }
                     })
                     ;
-            lGridPane.add(lXSpinner, 0, lRowIdx++);
+            lVBox.getChildren().add(lSpinner);
         }
         
         // integer spinner
         {
-            Spinner<Integer> lXSpinner = new Spinner<Integer>(new SpinnerIntegerList(10, 110));
-            lGridPane.add(lXSpinner, 0, lRowIdx++);
+            Spinner<Integer> lSpinner = new Spinner<Integer>(new SpinnerIntegerList(10, 110));
+            lVBox.getChildren().add(lSpinner);
         }
 
-        getChildren().add(lGridPane);
+        getChildren().add(lVBox);
     }
+    
+        
+    protected Spinner shallowClone(Spinner s1)
+    {
+        Spinner s2 = new Spinner(s1.getItems());
+        s2.setEditable(s1.isEditable());
+        s2.setCyclic(s1.isCyclic());
+        s2.setStringConverter(s1.getStringConverter());
+        s2.setAddCallback(s1.getAddCallback());
+        return s2;
+    }
+
 }
