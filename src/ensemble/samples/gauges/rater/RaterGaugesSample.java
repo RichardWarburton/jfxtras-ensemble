@@ -48,19 +48,19 @@ public class RaterGaugesSample extends Sample {
         Color.ORANGE,
         Color.BLUE
     };
-    private static final Random  RND          = new Random();
-    private static final long    DATA_PERIOD  = 3000000000l;
-    private long                 lastDataCall = 0;
+    private static final Random  RND      = new Random();
+    private static final long    PERIOD   = 3000000000l;
+    private long                 lastCall = 0;
     private Rater                rater;
-    private final AnimationTimer TIMER        = new AnimationTimer() {
+    private final AnimationTimer TIMER    = new AnimationTimer() {
         @Override
         public void handle(long l) {
             long currentNanoTime = System.nanoTime();
-            if (currentNanoTime > lastDataCall + DATA_PERIOD) {
+            if (currentNanoTime > lastCall + PERIOD) {
                 int index = RND.nextInt(5);
                 rater.setDarkColor(COLORS[index].darker());
                 rater.setBrightColor(COLORS[index].brighter());
-                lastDataCall = System.nanoTime();
+                lastCall = System.nanoTime();
             }
         }
     };
