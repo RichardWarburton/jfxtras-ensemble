@@ -15,6 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import jfxtras.labs.scene.control.gauge.Battery;
+import jfxtras.labs.scene.control.gauge.SimpleBattery;
 
 
 /**
@@ -23,6 +24,7 @@ import jfxtras.labs.scene.control.gauge.Battery;
  */
 public class BatteryGaugesSample extends Sample{
     private final Battery BATTERY;
+    private final SimpleBattery SIMPLE_BATTERY;
     private double charge;
 
     public BatteryGaugesSample() {
@@ -32,12 +34,15 @@ public class BatteryGaugesSample extends Sample{
         BATTERY = new Battery();
         charge = BATTERY.getChargingLevel();
 
+        SIMPLE_BATTERY = new SimpleBattery();
+
         Button decrease = new Button("decrease charge");
         decrease.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 charge -= 0.05;
                 BATTERY.setChargingLevel(charge);
+                SIMPLE_BATTERY.setChargingLevel(charge);
                 charge = BATTERY.getChargingLevel();
             }
         });
@@ -48,6 +53,7 @@ public class BatteryGaugesSample extends Sample{
             public void handle(MouseEvent mouseEvent) {
                 charge += 0.05;
                 BATTERY.setChargingLevel(charge);
+                SIMPLE_BATTERY.setChargingLevel(charge);
                 charge = BATTERY.getChargingLevel();
             }
         });
@@ -61,6 +67,7 @@ public class BatteryGaugesSample extends Sample{
             public void handle(MouseEvent mouseEvent) {
                 if (plug.isSelected()) {
                     BATTERY.setChargeIndicator(Battery.ChargeIndicator.PLUG);
+                    SIMPLE_BATTERY.setChargeIndicator(SimpleBattery.ChargeIndicator.PLUG);
                 }
             }
         });
@@ -71,6 +78,7 @@ public class BatteryGaugesSample extends Sample{
             public void handle(MouseEvent mouseEvent) {
                 if (flash.isSelected()) {
                     BATTERY.setChargeIndicator(Battery.ChargeIndicator.FLASH);
+                    SIMPLE_BATTERY.setChargeIndicator(SimpleBattery.ChargeIndicator.FLASH);
                 }
             }
         });
@@ -80,6 +88,7 @@ public class BatteryGaugesSample extends Sample{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 BATTERY.setCharging(charging.isSelected());
+                SIMPLE_BATTERY.setCharging(charging.isSelected());
             }
         });
 
@@ -92,12 +101,13 @@ public class BatteryGaugesSample extends Sample{
 
         // Add controls to the layout
         pane.add(BATTERY, 1, 1);
+        pane.add(SIMPLE_BATTERY, 2, 1);
         GridPane.setRowSpan(BATTERY, 5);
-        pane.add(decrease, 2, 1);
-        pane.add(increase, 2, 2);
-        pane.add(plug, 2, 3);
-        pane.add(flash, 2, 4);
-        pane.add(charging, 2, 5);
+        pane.add(decrease, 3, 1);
+        pane.add(increase, 3, 2);
+        pane.add(plug, 3, 3);
+        pane.add(flash, 3, 4);
+        pane.add(charging, 3, 5);
 
         getChildren().add(pane);
     }
