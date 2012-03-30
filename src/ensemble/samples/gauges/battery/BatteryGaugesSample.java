@@ -32,6 +32,7 @@ public class BatteryGaugesSample extends Sample{
 
         // Create some controls
         BATTERY = new Battery();
+        BATTERY.setPrefSize(200, 200);
         charge = BATTERY.getChargingLevel();
 
         SIMPLE_BATTERY = new SimpleBattery();
